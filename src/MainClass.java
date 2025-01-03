@@ -2,8 +2,6 @@ import java.util.*;
 
 public class MainClass {
     public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-        Solutions solutions=new Solutions();
 //        isPalindrome
 //        int n=sc.nextInt();
 //        System.out.println(solutions.isPalindrome(n));
