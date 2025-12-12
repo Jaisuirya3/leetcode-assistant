@@ -1309,7 +1309,7 @@ public class Solutions {
             arraySum += nums[i];
         }
         int sumOfN = (n * (n + 1))/2;
-        return sumOfN-arraySum;
+        return sumOfN - arraySum;
     }
 
     public boolean canBeIncreasing(int[] nums) { //Wrong
@@ -2126,4 +2126,349 @@ public class Solutions {
         return new String(res);
     }
 
+    public int countConsistentStrings(String allowed, String[] words) {
+        HashMap<Character, Boolean> hash = new HashMap<>();
+        for (int i = 0; i < allowed.length(); i++) {
+            hash.put(allowed.charAt(i), true);
+        }
+
+        int count=words.length;
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            for (int j = 0; j < word.length(); j++) {
+                if (hash.get(word.charAt(j)) == null) {
+                    count--;
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
+    public int smallestEvenMultiple(int n) {
+        return n % 2 == 0 ? n : n * 2;
+    }
+
+    public int findPermutationDifference(String s, String t) {
+        HashMap<Character, Integer> indexes = new HashMap<>();
+        for (int i = 0; i < t.length(); i++) {
+            indexes.put(t.charAt(i), i);
+        }
+        int sum=0;
+        for (int i = 0; i < s.length(); i++) {
+            sum += Math.abs(i - indexes.get(s.charAt(i)));
+        }
+        return sum;
+    }
+
+    public int hammingWeight(int n) {
+        int count=0;
+        while (n > 0) {
+            if (n % 2 == 1) {
+                count++;
+            }
+            n /= 2;
+        }
+        return count;
+    }
+
+    public int reverseBits(int n) {
+        int res = 0;
+        for (int i = 0; i < 32; i++) {
+            int bit = n & 1;
+            n = n >> 1;
+            res = res << 1;
+            res = res | bit;
+        }
+        return res;
+    }
+
+    public boolean isHappy(int n) {
+        HashSet<Integer> hash = new HashSet<>();
+        hash.add(2);
+        hash.add(3);
+        hash.add(4);
+        int sum = 0;
+        while (n > 0) {
+            int dig = n % 10;
+            sum = sum + (dig * dig);
+            n = n / 10;
+            if (n <= 0) {
+                if (sum == 1) {
+                    return true;
+                } else if (hash.contains(sum)) {
+                    return false;
+                }
+                hash.add(sum);
+                n = sum;
+                sum = 0;
+            }
+        }
+        return false;
+    }
+
+    public boolean isUgly(int n) {
+        if(n<1) return false;
+        int[] primeFactors = new int[]{5, 3, 2};
+        int i=0;
+        int fact = primeFactors[i];
+        while (n > 1) {
+            System.out.println("Num: "+ n);
+            System.out.println("fact: "+fact);
+            if (n % fact == 0) {
+                n = n / fact;
+            } else {
+                if (fact == 2) {
+                    return false;
+                }
+                i++;
+                fact = primeFactors[i];
+            }
+        }
+        return true;
+    }
+
+    public boolean isValidMountainArray(int[] arr) {
+        int len=arr.length;
+        if(len < 3) return false;
+        int i = 0;
+        while (arr[i] < arr[i + 1] && i < len - 2) {
+            i++;
+        }
+        if (i == 0 || i == len - 1) {
+            return false;
+        }
+        while (i < len - 1 && arr[i] > arr[i + 1]) {
+            i++;
+        }
+        return i == len - 1;
+    }
+
+    public boolean isValidMountainArray2(int[] arr) {
+        int len=arr.length;
+        if (len < 3) return false;
+        int left = 0;
+        int right = len - 1;
+        while (left < arr.length - 1) {
+            if (left+1 < len && arr[left + 1] > arr[left]) {
+                left++;
+            }
+            if (arr[right] < arr[right - 1]) {
+                right--;
+            }
+        }
+        return left > right;
+    }
+
+    public void patternProblem1(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void patternProblem2(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void patternProblem3(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(j + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void patternProblem4(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void patternProblem5(int n) {
+        for (int i = n; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+
+    public String addBinary(String a, String b) {
+        String[] addRule = new String[]{"0", "1", "0", "1"};
+        String result = "";
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+        int carry = 0;
+        while (i >= 0 || j >= 0) {
+            int sum = Integer.parseInt((i >= 0 ? a.charAt(i--) : "0") + "") + Integer.parseInt((j >= 0 ? b.charAt(j--) : "0") + "") + carry;
+            result = addRule[sum] + result;
+            if (sum < 2) {
+                carry = 0;
+            } else {
+                carry = 1;
+            }
+        }
+        return carry == 1 ? carry + result : result;
+    }
+
+    //pattern square
+    public void pattern1(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+
+    //pattern right triangle
+    public void pattern2(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void pattern3(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(j + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void pattern4(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void pattern5(int n) {
+        for (int i = n; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void pattern6(int n) {
+        for (int i = n; i > 0; i--) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(j + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void pattern7(int n) {
+        int left = (2 * n - 1) / 2;
+        int right = (2 * n - 1) / 2;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < (2 * n - 1); j++) {
+                if (j >= left && j <= right) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            left--;
+            right++;
+            System.out.println();
+        }
+    }
+
+    public void pattern8(int n) {
+        int left=0;
+        int right=2*n-2;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < 2 * n - 1; j++) {
+                if (j >= left && j <= right) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+            left++;
+            right--;
+        }
+    }
+
+    public void pattern9(int n) {
+        int mid = (2 * n - 1) / 2;
+        for (int i = 0; i < 2 * n - 1; i++) {
+            for (int j = 0; j <= mid - Math.abs(i - mid); j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+    public void pattern10(int n) {
+        int mid=(2*n-1)/2;
+        for (int i = 0; i < 2 * n - 1; i++) {
+            int l = Math.abs(mid - i);
+            int r = mid + mid - Math.abs(i - mid);
+            for (int j = 0; j < 2 * n - 1; j++) {
+                if (j >= l && j <= r) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void pattern11(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                System.out.print((i + j) % 2);
+            }
+            System.out.println();
+        }
+    }
+
+    public void pattern12(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= 2 * n - 1; j++) {
+                if (j < i) {
+                    System.out.print(j + 1);
+                } else if (j <= 2 * n - 1 - i) {
+                    System.out.print(" ");
+                } else {
+                    System.out.print(2 * n - 1 - j + 1);
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void pattern13(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = (i * (i - 1)) / 2 + 1; j <= (i * (i + 1)) / 2; j++) {
+                System.out.print(j+" ");
+            }
+            System.out.println();
+        }
+    }
 }

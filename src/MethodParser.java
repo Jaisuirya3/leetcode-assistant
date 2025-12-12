@@ -16,7 +16,6 @@ public class MethodParser {
 //            String regex = "(public|private|protected)\\s+(\\w+)\\s+(\\w+)\\((.*)\\)";
             String regex = "(public|private|protected)\\s+((?:\\w+|List<\\w+>|Set<\\w+>|Map<\\w+,\\w+>))\\s+(\\w+)\\((.*)\\)";
             java.util.regex.Matcher matcher = java.util.regex.Pattern.compile(regex).matcher(methodDefinition);
-            System.out.println("Matcher: "+matcher);
 
             if (!matcher.matches()) {
                 throw new IllegalArgumentException("Invalid method definition format.");
