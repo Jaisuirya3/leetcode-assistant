@@ -2471,4 +2471,34 @@ public class Solutions {
             System.out.println();
         }
     }
+
+    public void pattern14(int n) {
+        int[][] nums = new int[n][n];
+        int num = 1;
+        for (int start = 0, end=n-1; start < Math.ceil((double) n / 2); start++, end--) {
+            //top wall
+            for (int j = start; j <= end; j++) {
+                nums[start][j] = num++;
+            }
+            //right wall
+            for (int j = start+1; j <= end; j++) {
+                nums[j][end] = num++;
+            }
+            //bottom wall
+            for (int j = end-1; j >= start; j--) {
+                nums[end][j]=num++;
+            }
+            //left wall
+            for (int j = end - 1; j >= start+1; j--) {
+                nums[j][start]=num++;
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(nums[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
 }

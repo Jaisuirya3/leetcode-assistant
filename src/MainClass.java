@@ -467,7 +467,8 @@ public class MainClass {
 //        MethodParser.callTheMethod("public void pattern10(int n)", Solutions.class);
 //        MethodParser.callTheMethod("public void pattern11(int n)", Solutions.class);
 //        MethodParser.callTheMethod("public void pattern12(int n)", Solutions.class);
-        MethodParser.callTheMethod("public void pattern13(int n)", Solutions.class);
+//        MethodParser.callTheMethod("public void pattern13(int n)", Solutions.class);
+        MethodParser.callTheMethod("public void pattern14(int n)", Solutions.class);
 
 
 
