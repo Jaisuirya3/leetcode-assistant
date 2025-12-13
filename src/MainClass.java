@@ -473,9 +473,11 @@ public class MainClass {
 
 
         //----------Running again recursively--------//
-        System.out.println("\n\nEnter 0 to run again.");
-        if (new Scanner(System.in).next().charAt(0) == '0') {
+        System.out.println("\n\nHit Enter to run again. Any (letter + Enter) to exit.");
+        if (new Scanner(System.in).nextLine().isEmpty()) {
             main(args);
+        } else {
+            return;
         }
     }
 
