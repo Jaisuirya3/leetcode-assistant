@@ -45,8 +45,13 @@ public class MethodParser {
                 String paramType = paramTypeAndName[0];
                 String paramName = paramTypeAndName[1];
 
+                System.out.println("Leave empty and hit enter to exit");
                 System.out.print(paramName + " (" + paramType + "): ");
-                paramValues[i] = parseInput(paramType, scanner.nextLine());
+                String input = scanner.nextLine();
+                if (input.isEmpty()) {
+                    System.exit(0);
+                }
+                paramValues[i] = parseInput(paramType, input);
                 paramTypes[i] = getClassForType(paramType);
             }
 
@@ -61,6 +66,7 @@ public class MethodParser {
             if (!returnType.equals("void")) {
                 System.out.println("Output: " + result);
             }
+            System.out.println("\n\n");
 
         } catch (Exception e) {
             e.printStackTrace();
