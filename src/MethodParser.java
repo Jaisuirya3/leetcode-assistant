@@ -10,7 +10,7 @@ public class MethodParser {
      * @param methodDefinition The method definition in the format "public int methodName(String param1, int param2)"
      * @param classOfMethod    The class where the method is defined.
      */
-    public static void callTheMethod(String methodDefinition, Class<?> classOfMethod) {
+    public static void callTheMethod(String methodDefinition, Class<?> classOfMethod, boolean exitEnabled) {
         try {
             // Extract method details using regex
 //            String regex = "(public|private|protected)\\s+(\\w+)\\s+(\\w+)\\((.*)\\)";
@@ -45,11 +45,20 @@ public class MethodParser {
                 String paramType = paramTypeAndName[0];
                 String paramName = paramTypeAndName[1];
 
-                System.out.println("Leave empty and hit enter to exit");
+                if (exitEnabled) {
+                    System.out.println("Leave empty and hit enter to exit");
+                } else {
+                    System.out.println("Sorry, this time empty text + enter won't work");
+                }
                 System.out.print(paramName + " (" + paramType + "): ");
-                String input = scanner.nextLine();
-                if (input.isEmpty()) {
-                    System.exit(0);
+                String input;
+                if (exitEnabled) {
+                    input = scanner.nextLine();
+                    if (input.isEmpty()) {
+                        System.exit(0);
+                    }
+                } else {
+                    input = scanner.next();
                 }
                 paramValues[i] = parseInput(paramType, input);
                 paramTypes[i] = getClassForType(paramType);
