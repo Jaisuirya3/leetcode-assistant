@@ -3,12 +3,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class MethodParser {
-
     /**
      * Parses a method definition string, collects user inputs, and dynamically invokes the method.
      *
      * @param methodDefinition The method definition in the format "public int methodName(String param1, int param2)"
      * @param classOfMethod    The class where the method is defined.
+     * @param exitEnabled    Lets user exit recursive execution in the runtime
      */
     public static void callTheMethod(String methodDefinition, Class<?> classOfMethod, boolean exitEnabled) {
         try {
@@ -24,9 +24,9 @@ public class MethodParser {
             String returnType = matcher.group(2); // Extract return type
             String methodName = matcher.group(3); // Extract method name
             String paramString = matcher.group(4); // Extract parameters
-            System.out.println(returnType);
-            System.out.println(methodName);
-            System.out.println(paramString);
+            System.out.println("Return type: " + returnType);
+            System.out.println("Method name: " + methodName);
+            System.out.println("Parameters: " + paramString);
 
             // Process parameter types and names
             String[] paramDetails = paramString.isEmpty() ? new String[0] : paramString.split(",");
