@@ -47,7 +47,7 @@ public class MainClass {
 //        MethodParser.callTheMethod("public void patternProblem3(int n)", Solutions.class);
 //        MethodParser.callTheMethod("public void patternProblem4(int n)", Solutions.class);
 //        MethodParser.callTheMethod("public void patternProblem5(int n)", Solutions.class);
-        MethodParser.callTheMethod("public String addBinary(String a, String b)", Solutions.class, false);
+//        MethodParser.callTheMethod("public String addBinary(String a, String b)", Solutions.class, false);
 //        MethodParser.callTheMethod("public void pattern1(int n)", Solutions.class);
 //        MethodParser.callTheMethod("public void pattern2(int n)", Solutions.class);
 //        MethodParser.callTheMethod("public void pattern3(int n)", Solutions.class);
@@ -62,6 +62,7 @@ public class MainClass {
 //        MethodParser.callTheMethod("public void pattern12(int n)", Solutions.class);
 //        MethodParser.callTheMethod("public void pattern13(int n)", Solutions.class);
 //        MethodParser.callTheMethod("public void pattern14(int n)", Solutions.class, false);
+        MethodParser.callTheMethod("public String[] findRestaurant(String[] list1, String[] list2)", Solutions.class, true);
 
 
 

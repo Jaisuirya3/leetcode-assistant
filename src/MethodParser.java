@@ -14,7 +14,11 @@ public class MethodParser {
         try {
             // Extract method details using regex
 //            String regex = "(public|private|protected)\\s+(\\w+)\\s+(\\w+)\\((.*)\\)";
-            String regex = "(public|private|protected)\\s+((?:\\w+|List<\\w+>|Set<\\w+>|Map<\\w+,\\w+>))\\s+(\\w+)\\((.*)\\)";
+//            String regex = "(public|private|protected)\\s+((?:\\w+|List<\\w+>|Set<\\w+>|Map<\\w+,\\w+>))\\s+(\\w+)\\((.*)\\)";
+            String regex =
+                    "(public|private|protected)\\s+" +
+                            "((?:\\w+(?:<[^>]+>)?)(?:\\[\\])*)" +
+                            "\\s+(\\w+)\\((.*)\\)";
             java.util.regex.Matcher matcher = java.util.regex.Pattern.compile(regex).matcher(methodDefinition);
 
             if (!matcher.matches()) {
@@ -73,12 +77,46 @@ public class MethodParser {
 
             // Handle return type
             if (!returnType.equals("void")) {
-                System.out.println("Output: " + result);
+                System.out.print("Output: ");
+                printResult(result);
             }
             System.out.println("\n\n");
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void printResult(Object result) {
+        if (result == null) {
+            System.out.println("null");
+            return;
+        }
+
+        Class<?> resultClass = result.getClass();
+
+        if (resultClass.isArray()) {
+            // Handle primitive arrays separately
+            if (result instanceof int[]) {
+                System.out.println(Arrays.toString((int[]) result));
+            } else if (result instanceof long[]) {
+                System.out.println(Arrays.toString((long[]) result));
+            } else if (result instanceof double[]) {
+                System.out.println(Arrays.toString((double[]) result));
+            } else if (result instanceof boolean[]) {
+                System.out.println(Arrays.toString((boolean[]) result));
+            } else {
+                // Object arrays (String[], Integer[], etc.)
+                System.out.println(Arrays.deepToString((Object[]) result));
+            }
+        }
+        else if (result instanceof Collection) {
+            // List, Set, etc.
+            System.out.println(result);
+        }
+        else {
+            // Normal objects / primitives
+            System.out.println(result);
         }
     }
 
@@ -158,12 +196,6 @@ public class MethodParser {
                 throw new IllegalArgumentException("Unsupported parameter type: " + paramType);
         }
     }
-
-//    public static void main(String[] args) {
-//        // Example usage:
-//        String methodDefinition = "public int firstUniqChar(String s)";
-//        runTheMethod(methodDefinition, Solutions.class);
-//    }
 }
 
 //class Solution {

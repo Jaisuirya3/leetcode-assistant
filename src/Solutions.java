@@ -2501,4 +2501,33 @@ public class Solutions {
             System.out.println();
         }
     }
+
+    public String[] findRestaurant(String[] list1, String[] list2) {
+        HashMap<String, Integer> hash = new HashMap<>();
+        for (int i = 0; i < list1.length; i++) {
+            hash.put(list1[i], i);
+        }
+        int currSum = Integer.MAX_VALUE;
+        int count=1;
+        for (int i = 0; i < list2.length; i++) {
+            if (hash.get(list2[i]) != null) {
+                int sum = hash.get(list2[i]) + i;
+                if (sum == currSum) {
+                    count++;
+                }else if(sum<currSum){
+                    currSum = sum;
+                    count=1;
+                }
+            }
+        }
+        String[] items = new String[count];
+        for (int i = 0, j=0; i < list2.length; i++) {
+            if (hash.get(list2[i]) != null) {
+                if (hash.get(list2[i]) + i <= currSum) {
+                    items[j++] = list2[i];
+                }
+            }
+        }
+        return items;
+    }
 }
